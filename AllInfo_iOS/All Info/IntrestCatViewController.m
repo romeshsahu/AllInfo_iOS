@@ -148,8 +148,6 @@ bool isShownmodule1 = false;
                 }
                
                  [_HomeCollectionView reloadData];
-                NSLog(@"arrSelectedCat = %@", arrSelectedCat);
-                NSLog(@"arrSelectedCat_Check = %@", arrSelectedCat_Check);
             }
         }
     }
@@ -176,7 +174,6 @@ bool isShownmodule1 = false;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSLog(@"view did appear");
 }
 
 - (void)GetBusinesList:(id)response {
@@ -209,7 +206,6 @@ bool isShownmodule1 = false;
             NSArray *CategrArr=[responseDic objectForKey:@"result"];
             for (int i=0; i<CategrArr.count; i++) {
                 NSDictionary *CategrDic=[CategrArr objectAtIndex:i];
-                // NSLog(@"CategrDic = %@", CategrDic);
                 Allinfo *CategrArrInfo=[[Allinfo alloc]init];
                 //NSLog(@"CategoryId = %@", [CategrDic objectForKey:@"category_id"]);
                 CategrArrInfo.category_id=[CategrDic objectForKey:@"category_id"];
@@ -328,7 +324,6 @@ bool isShownmodule1 = false;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"didSelectItemAtIndexPath....%ld",(long)indexPath.row);
     IntrestedCatCVCell *datasetCell = (IntrestedCatCVCell *)[collectionView cellForItemAtIndexPath:indexPath];
     datasetCell.imgCheck.image = [UIImage imageNamed:@"checkBlueTick.png"];
 
@@ -360,7 +355,6 @@ bool isShownmodule1 = false;
     }
     [collectionView reloadData];
 
-    NSLog(@"arrSelectedCat...%@",arrSelectedCat);
 }
 
 /*-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath

@@ -103,11 +103,8 @@
             }
         }];
     } else {
-        NSLog(@"registerForPushNotification 0000");
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-        {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0){
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0 //
-            NSLog(@"registerForPushNotification: For iOS >= 8.0");
             
             [[UIApplication sharedApplication] registerUserNotificationSettings:
              [UIUserNotificationSettings settingsForTypes:
@@ -115,7 +112,6 @@
             [[UIApplication sharedApplication] registerForRemoteNotifications];
 #endif
         } else {
-            NSLog(@"registerForPushNotification: For iOS < 8.0");
             [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
              (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
         }
@@ -170,9 +166,7 @@
                 
                 UITabBarController *tabar = controller.viewControllers[0];
                 [tabar setSelectedIndex:3];
-                
                 self.window.rootViewController=controller;
-                
             }
         } else {
             UIStoryboard *MainStoryboard = [UIStoryboard storyboardWithName:@"Main"
@@ -243,7 +237,6 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"deviceToken:::::   %@",deviceToken);
     NSLog(@"token:::::   %@",token);
     [self addDeviceInfo:token];
     [[NSUserDefaults standardUserDefaults]setValue:token forKey:@"DevieceId"];
@@ -253,7 +246,6 @@
     // failed to register push
     NSString *str = [NSString stringWithFormat: @"Error: %@", error];
     NSLog(@"Error:::::   %@",str);
-    
 }
 
 
@@ -264,11 +256,9 @@
 #pragma mark- xcode8 method
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler{
     NSLog(@"User Info : %@",response.notification.request.content.userInfo);
-    
     NSMutableArray *arrAPS=[[NSMutableArray alloc]init];
     arrAPS=[response.notification.request.content.userInfo objectForKey:@"aps"];
     NSString *message = [NSString stringWithFormat:@"%@",[arrAPS valueForKey:@"alert"]];
-
     UIStoryboard *MainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     UINavigationController *controller = (UINavigationController*)[MainStoryboard instantiateViewControllerWithIdentifier: @"RootNavigationController"];
     UITabBarController *tabar = controller.viewControllers[0];
@@ -282,7 +272,6 @@
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
-    NSLog(@"recieved notification 1111");
     completionHandler(UIBackgroundFetchResultNoData);
     NSMutableArray *arrAPS=[[NSMutableArray alloc]init];
     arrAPS=[userInfo objectForKey:@"aps"];

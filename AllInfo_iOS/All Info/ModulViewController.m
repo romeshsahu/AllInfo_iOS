@@ -159,6 +159,13 @@ bool isShownmodule = false;
 - (void)viewWillAppear:(BOOL)animated {
     //  [self.view setTransform:CGAffineTransformMakeScale(-1, 1)];
     [self.HomeCollectionView setTransform:CGAffineTransformMakeScale(-1, 1)];
+    [self.tf_Name setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.tf_Phone setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [self.tf_Email setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+
+    [self.tf_Name setPlaceholder:NSLocalizedString(@"PName" ,nil)];
+    [self.tf_Phone setPlaceholder:NSLocalizedString(@"PPhone" ,nil)];
+    [self.tf_Email setPlaceholder:NSLocalizedString(@"PEmail" ,nil)];
     
     
     [super viewWillAppear:animated];
@@ -167,7 +174,16 @@ bool isShownmodule = false;
     lo=userlong;
     [sample.view removeFromSuperview];
     self.tabBarController.tabBar.hidden=NO;
+    
+   // self.view_PopUp.frame = CGRectMake(0, 70, self.view.frame.size.width, self.view.frame.size.height - 70);
+   // [self.view addSubview:self.view_PopUp];
+    
 }
+
+-(void) viewDidDisappear:(BOOL)animated {
+    locationManager.delegate = nil;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     [self.searchFiled resignFirstResponder];
@@ -197,20 +213,13 @@ bool isShownmodule = false;
         
     } else {
         
-        
-        
-        
         FMDBManager *fm = [[FMDBManager alloc] init];
         [fm openDataBase];
         categrtArray = [fm Categryarry];
         
-        
         NSSortDescriptor * descriptor = [NSSortDescriptor sortDescriptorWithKey:@"show_date" ascending:NO selector:@selector(localizedCaseInsensitiveCompare:)];
         NSArray * arrSorted = [NSArray arrayWithObject:descriptor];
-        
         [categrtArray sortUsingDescriptors:arrSorted];
-        
-        
         [self.HomeCollectionView reloadData];
         
     }
@@ -303,8 +312,6 @@ bool isShownmodule = false;
         
         // [categrtArray removeAllObjects];
         //[categrtArray addObjectsFromArray:arrSorted];
-        
-        
         
         // }
         [self.HomeCollectionView reloadData];
@@ -425,7 +432,6 @@ bool isShownmodule = false;
     //    cell.HomeImageView.layer.cornerRadius = 10;
     
     NSString *imageToLoad = [categryDic objectForKey:@"category_image"];
-    NSLog(@"imageToLoad = %@", imageToLoad);
     //[cell.HomeImageView sd_setImageWithURL:[NSURL URLWithString:imageToLoad] placeholderImage:[UIImage imageNamed:@"allinfo_logo_icon.png"]];
     [cell.HomeImageView sd_setImageWithURL:[NSURL URLWithString:imageToLoad] placeholderImage:[UIImage imageNamed:@"allinfo_logo_icon.png"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         // URL is as expected, but Image is wrong
@@ -726,5 +732,14 @@ bool isShownmodule = false;
 }
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
     [[AppDelegate SharedInstance]getselectedTab:tabBarController.selectedIndex];
+}
+- (IBAction)btn_CloseView:(id)sender {
+    [self.view_PopUp removeFromSuperview];
+}
+
+- (IBAction)btn_TermsConditions:(id)sender {
+}
+
+- (IBAction)btn_Submit:(id)sender {
 }
 @end

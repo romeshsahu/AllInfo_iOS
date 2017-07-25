@@ -75,8 +75,7 @@ bool isShownhist = false;
    // arrSortedDate = HistoryArr;
     NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"create_date" ascending:YES];
     [HistoryArr sortUsingDescriptors:[NSArray arrayWithObject:sorter]];
-    
-   // NSLog(@"arrSortedDate....%@",arrSortedDate);
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,7 +99,6 @@ bool isShownhist = false;
 
     NSString *distanceString = [HistoryArr objectAtIndex:indexPath.row][@"distance"];
     float your_float = [distanceString floatValue];
-    NSLog(@"float value is: %.1f", your_float);
     NSString *fString = [NSString stringWithFormat:@"%.1f", your_float];
     cell.destancelabel.text=[NSString stringWithFormat:@"%@ km",fString];
 
@@ -118,8 +116,6 @@ bool isShownhist = false;
     NSString *imageToLoad9 = [dict objectForKey:@"product_image9"];
     NSString *imageToLoad10 = [dict objectForKey:@"product_image10"];
     
-    NSLog(@"imageToLoad = %@", imageToLoad);
-    NSLog(@"kAppDelegate.strSubCategory = %@", kAppDelegate.strSubCategory);
     if(imageToLoad.length > 0) {
         [cell.histimgesview sd_setImageWithURL:[NSURL URLWithString:imageToLoad] placeholderImage:[UIImage imageNamed:@"allinfo_logo_icon.png"]];
     } else if(imageToLoad2.length > 0) {

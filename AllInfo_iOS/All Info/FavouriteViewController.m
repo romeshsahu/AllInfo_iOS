@@ -54,7 +54,6 @@ bool isShownfaver;
     FMDBManager *fm = [[FMDBManager alloc] init];
     [fm openDataBase];
     favtatearr = [fm getfavirate];
-    NSLog(@"favtatearr = %d", (int)favtatearr.count);
     [self.favitarateCollectionView reloadData];
 }
 

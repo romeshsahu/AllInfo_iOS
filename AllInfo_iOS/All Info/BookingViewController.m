@@ -420,14 +420,9 @@
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
     mobileNumber = [mobileNumber stringByReplacingOccurrencesOfString:@"+" withString:@""];
     
-    NSLog(@"%@", mobileNumber);
-    
     long int length = [mobileNumber length];
-    if(length > 10)
-    {
+    if(length > 10) {
         mobileNumber = [mobileNumber substringFromIndex: length-10];
-        NSLog(@"%@", mobileNumber);
-        
     }
     
     

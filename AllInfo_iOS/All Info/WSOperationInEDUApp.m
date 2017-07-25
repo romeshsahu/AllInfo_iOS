@@ -54,11 +54,9 @@
 }
     
 - (void) addDeviceInfo:(NSString *) strNotificationId {
-    if([[Reachability sharedReachability] internetConnectionStatus] == NotReachable )
-    {
+    if([[Reachability sharedReachability] internetConnectionStatus] == NotReachable ) {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Please check network connection.",nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK" ,nil)otherButtonTitles:nil];
-        [alert show];
-        
+        //[alert show];
     }else{
         
         NSString * strUDID = [[UIDevice currentDevice].identifierForVendor UUIDString];
@@ -180,11 +178,10 @@
         [request setValue:@"application/x-www-form-urlencoded;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
         conn=[[NSURLConnection alloc]initWithRequest:request delegate:self];
     }
-    
 }
+
 //http://allinfo.co.il/all_info/webservice/master.php?action=businessList&login_id=2&language_id=2
--(void)addbusinessList:(NSString*)login_id language_id:(NSString*)language_id page_no:(NSString*)page_no limit:(NSString*)limit
-{
+-(void)addbusinessList:(NSString*)login_id language_id:(NSString*)language_id page_no:(NSString*)page_no limit:(NSString*)limit {
     if([[Reachability sharedReachability] internetConnectionStatus] == NotReachable )
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Please check network connection.",nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK" ,nil)otherButtonTitles:nil];
@@ -267,10 +264,9 @@
 
 
 -(void)get_subcategory:(NSString*)category_id{
-    if([[Reachability sharedReachability] internetConnectionStatus] == NotReachable )
-    {
+    if([[Reachability sharedReachability] internetConnectionStatus] == NotReachable ) {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Please check network connection.",nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK" ,nil)otherButtonTitles:nil];
-        [alert show];
+  //      [alert show];
         
     }else{
        
@@ -292,10 +288,9 @@
 
 - (void)getLastUpdate {
     
-    if([[Reachability sharedReachability] internetConnectionStatus] == NotReachable )
-      {
+    if([[Reachability sharedReachability] internetConnectionStatus] == NotReachable ) {
           UIAlertView *alert=[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Please check network connection.",nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK" ,nil)otherButtonTitles:nil];
-        [alert show];
+   //     [alert show];
         
       }else{
           
@@ -2090,8 +2085,12 @@
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     [self hideLoader];
-    //UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Dingur Alert" message:@"Please check your internet connection." delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil, nil];
-   // [alert show];
+    
+    
+    NSLog(@"WSOperation error = %@", error.debugDescription);
+    
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Please check network connection.",nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK" ,nil) otherButtonTitles:nil, nil];
+    [alert show];
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
   // [MBProgressHUD dismissGlobalHUD];

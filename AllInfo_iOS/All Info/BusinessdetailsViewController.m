@@ -113,8 +113,7 @@ bool isbusiness = false;
     [ws share_page_user_id:[bdic objectForKey:@"user_id"]];
     
     NSLog(@"bdic = %@", bdic);
-    NSLog(@"user_id = %@", [bdic objectForKey:@"user_id"]);
-    
+ 
     Rating=[bdic objectForKey:@"rating"];
     value = [Rating intValue];
     setwsLat= [[NSString alloc] initWithFormat: @"%@", [bdic objectForKey:@"latitude"]];
@@ -133,8 +132,6 @@ bool isbusiness = false;
         lbl_Status.text = @"";
         lbl_Status1.text = @"";
     }
-    
-    
     
     if([bdic[@"parking_avail"] intValue] == 1) {
         [self.imgView_Parking setHidden:NO];
@@ -265,7 +262,6 @@ bool isbusiness = false;
         self.AddressLabel.text=[NSString stringWithFormat:@"%@",strUnicodeString];
     }
     float your_float = [distanceString floatValue];
-    NSLog(@"float value is: %.1f km", your_float);
     NSString *fString = [NSString stringWithFormat:@"%.1f km", your_float];
     self.DistanceLabel.text=[NSString stringWithFormat:@"%@",fString];
     self.placehoderLabel.hidden = YES;
@@ -508,8 +504,6 @@ bool isbusiness = false;
         [self.ProfileImage10 addGestureRecognizer:tapGesture5];
     }
 
-    NSLog(@"array size is %lu", (unsigned long)ImageArr.count);
- 
     if(ImageArr.count > 0) {
         self.lbl_ImgCounter.frame = CGRectMake(0, self.view_Images.frame.size.height - self.lbl_ImgCounter.frame.size.height - 2, self.lbl_ImgCounter.frame.size.width, self.lbl_ImgCounter.frame.size.height);
         [self.view_Images addSubview:self.lbl_ImgCounter];
@@ -521,12 +515,12 @@ bool isbusiness = false;
         
         self.lbl_ImgCounter.hidden = YES;
     }
-    
-    
     [self setupRateView];
     // Do any additional setup after loading the view.
-    
-   
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    locationManager.delegate = nil;
 }
 
 - (void) tapGesture1: (id)sender
@@ -1202,11 +1196,8 @@ bool isbusiness = false;
             strBusinessName =[NSString stringWithFormat:@"%@",strUnicodeString];
         }
     }
-    
-    NSLog(@"strBusinessName = %@", strBusinessName);
     NSString *textToShare = [NSString stringWithFormat: @"%@ \n%@", strBusinessName,strLink];
-    
-    
+
     /// If user suddenly click and link got empty then this condition executes
     if (strLink == nil) {
        // strLink=@"";
@@ -1223,7 +1214,6 @@ bool isbusiness = false;
     }  else {
         NSURL *myWebsite = [NSURL URLWithString:strLink];
         NSArray *objectsToShare = @[strBusinessName, myWebsite];
-        NSLog(@"objectsToShare....%@",objectsToShare);
         
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
         NSArray *excludeActivities = @[];

@@ -52,6 +52,11 @@ bool isShowngif = false;
 //bookmarkArray = [[NSMutableArray alloc] init];
     [pullToRefreshManager_ relocatePullToRefreshView];
 }
+
+-(void) viewDidDisappear:(BOOL)animated {
+    locationManager.delegate = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -72,7 +77,6 @@ bool isShowngif = false;
 }
 
 - (void) tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    NSLog(@"working");
 }
     
 - (void)viewDidLoad {
@@ -225,9 +229,7 @@ bool isShowngif = false;
   //  [errorAlert show];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
-{
-        // NSLog(@"didUpdateToLocation: %f, long = %f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     CLLocation *currentLocation = newLocation;
     if (currentLocation != nil) {
         
@@ -288,9 +290,7 @@ bool isShowngif = false;
     NSString *imageToLoad9 = [BussnessDic objectForKey:@"product_image9"];
     NSString *imageToLoad10 = [BussnessDic objectForKey:@"product_image10"];
     
-    
-   // NSLog(@"imageToLoad = %@", imageToLoad);
-   // NSLog(@"kAppDelegate.strSubCategory = %@", kAppDelegate.strSubCategory);
+
     if(imageToLoad.length > 0) {
         [cell.PrdoctImgView sd_setImageWithURL:[NSURL URLWithString:imageToLoad] placeholderImage:[UIImage imageNamed:@"allinfo_logo_icon.png"]];
     } else if(imageToLoad2.length > 0) {
@@ -498,7 +498,6 @@ bool isShowngif = false;
         MapView.isserchsetview=true;
         MapView.strSCName = _ShowTitalLabe.text;
         MapView.intLimit = ((int)pageNo - 1) * 10;
-        NSLog(@"(int)pageNo * 10 = %d", ((int)pageNo - 1) * 10);
     }
 
     if ([segue.identifier isEqualToString:@"Details"]) {
@@ -619,7 +618,6 @@ bool isShowngif = false;
     
     //start the connection
     [self.connection start];
- NSLog(@"(int)pageNo * 10 = %d", (int)pageNo * 10);
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
@@ -638,9 +636,7 @@ bool isShowngif = false;
                     pageNo++;
                     [self.LocationTableView reloadData];
 
-            }
-                NSLog(@"serchListArr = %d", (int)serchListArr.count);
-                
+            }   
                  [self reloadData];
             
         }else {

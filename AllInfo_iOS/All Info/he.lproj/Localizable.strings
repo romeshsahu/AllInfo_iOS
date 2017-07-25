@@ -203,5 +203,7 @@
 "PeopleAccess" = "גישה לנכים";
 "CurrentLocation" = "עדכון המיקום שלי";
 
-
+"PName" = "שֵׁם";
+"PPhone" = "טלפון";
+"PEmail" = "אֶלֶקטרוֹנִי";
 

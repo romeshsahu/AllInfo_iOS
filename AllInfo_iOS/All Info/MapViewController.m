@@ -193,7 +193,6 @@
          if(placemarks && placemarks.count > 0)
          {
               placemark= [placemarks objectAtIndex:0];
-               NSLog(@"placemark %@",placemark);
              // address defined in .h file
              locatedAt = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
              locationdata= placemark.addressDictionary;
@@ -209,6 +208,7 @@
              [[NSUserDefaults standardUserDefaults]setValue:locationdata forKey:@"location"];
              [[NSUserDefaults standardUserDefaults]setValue:lcation2 forKey:@"location2"];
 
+             /*
              NSLog(@"View Controller get Location Logitute : %f",coordinate.latitude);
              NSLog(@"View Controller get Location Latitute : %f",coordinate.longitude);
              NSLog(@"addressDictionary %@", placemark.addressDictionary);
@@ -219,7 +219,7 @@
                   NSLog(@"location %@",placemark.ocean);
                   NSLog(@"location %@",placemark.postalCode);
                   NSLog(@"location %@",placemark.subLocality);
-                  NSLog(@"location %@",placemark.location);
+                  NSLog(@"location %@",placemark.location); */
                   //Print the location to console
                   NSLog(@"I am currently at %@",locatedAt);
              [self.navigationController popViewControllerAnimated:YES];

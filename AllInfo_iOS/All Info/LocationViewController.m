@@ -9,6 +9,8 @@
 #import "LocationViewController.h"
 #import "MenuViewController.h"
 #import "LocationViewCell.h"
+#import "Reachability.h"
+
 @interface LocationViewController (){
      MenuViewController * sample;
 }
@@ -42,6 +44,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (void)viewDidLayoutSubviews {
     
     [super viewDidLayoutSubviews];
@@ -51,7 +54,17 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     dictLD = [[NSDictionary alloc] init];
-    [self GetLocationData];
+    if([[Reachability sharedReachability] internetConnectionStatus] == NotReachable ) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Please check network connection.",nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK" ,nil)otherButtonTitles:nil];
+        [alert show];
+        
+    }else{
+        [self GetLocationData];
+    }
+}
+
+-(void) viewDidDisappear:(BOOL)animated {
+    locationManager.delegate = nil;
 }
 
 #pragma mark - UITableView Delegates
@@ -92,7 +105,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableDictionary * dict = arrLocation[indexPath.row];
     
-    
     for (int i = 0; i< arrLocation.count; i++) {
         
         NSMutableDictionary * dict = [arrLocation[i] mutableCopy];
@@ -103,9 +115,7 @@
     [dict setObject:@"1" forKey:@"isSelected"];
     [arrLocation replaceObjectAtIndex:indexPath.row withObject:dict];
     [self.tblView_Location reloadData];
-   
     dictLD = dict;
-    
     strSelectedLat = dict[@"latitude"];
     strSelectedLong = dict[@"longitude"];
     
@@ -294,8 +304,13 @@
     [self.Activity stopAnimating];
     NSLog(@"%@" , error);
     [self reloadData];
+    
+    if(error.code == -1009) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:NSLocalizedString(@"Please check network connection.",nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"OK" ,nil)otherButtonTitles:nil];
+        [alert show];
+    }
+    
 }
-
 
 -(void)PushViewControllersOnSelFView:(int)View {
     [sample.view removeFromSuperview];
